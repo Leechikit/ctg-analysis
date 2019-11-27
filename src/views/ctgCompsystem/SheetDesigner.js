@@ -32,6 +32,17 @@ export default class SheetDesigner {
   }
   //选中控件
   ControlElementSelected($el) {
+    //如果控件已经选中则不要再次选中
+    if ($el.hasClass('s-selected')) {
+      return
+    }
+
+    //清除所有选中控件的选中状态
+    this.$SheetContent.find('.s-selected').removeClass('s-selected')
+    //设置当前控件的选中状态
+    $el.addClass('s-selected')
+
+    // 清空属性区域
     const datafield = this.GetDataField($el)
     this.$SheetPropertysPanel.empty()
     //加载控件属性

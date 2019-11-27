@@ -34,19 +34,24 @@ export default class ControlManager {
           this.$Control.text(val)
         })
         break
+      case 'ControlCode':
+        pManager = this.RenderTextBox(designProperty)
+        break
       default:
       // this.RenderTextBox(designProperty)
     }
     this.PropertyManagers[designProperty.Name] = pManager
   }
+  // 渲染文本框
   RenderTextBox(designProperty, callback) {
     let propertyName = designProperty.Name
     let defaultValue = this.Settings[propertyName] || ''
     let propertyManager = new PropertyManager(propertyName)
     let that = this
     let $item = $(
-      "<textarea maxlength=20 style='width:100%; line-height:20px;resize:none;overflow-y:scroll' class='property-input' rows='1'>"
+      '<input maxlength="10" class="property-input" data-index="0">'
     ).val(defaultValue.replace(/(^\s*)|(^\s*$)/g, ''))
+    propertyManager.SetTitle(designProperty.Text)
     propertyManager.AddItem($item)
     $item.keyup(function() {
       var newValue = $(this).val()

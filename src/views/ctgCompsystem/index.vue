@@ -71,12 +71,56 @@ export default {
 }
 .comp {
   overflow: hidden;
+  margin: 0 5px;
   &-item {
     float: left;
-    width: 50%;
+    width: 48%;
+    margin: 1%;
     height: 40px;
     line-height: 40px;
     text-decoration: none;
+    background-color: #f0f4ff;
+    border-radius: 5px;
+    color: #333;
+    &:hover {
+      color: #2d8cf0;
+    }
+  }
+}
+#sheetContent {
+  margin: 0 15px;
+  .sheet-control {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    background-color: #f0f4ff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    &.s-selected {
+      border: 1px dashed #2d8cf0;
+    }
+  }
+}
+#sheetPropertysPanel {
+  margin: 0 5px;
+  .property-group {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+  }
+  .property-left {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  .property-items {
+    margin-bottom: 10px;
+  }
+  .property-input {
+    width: 100%;
   }
 }
 </style>

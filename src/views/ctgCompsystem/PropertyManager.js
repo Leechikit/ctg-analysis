@@ -37,4 +37,7 @@ export default class PropertyManager {
     this.IndexNo++
     return $li
   }
+  SetTitle(title) {
+    this.$Title.text(title)
+  }
 }
