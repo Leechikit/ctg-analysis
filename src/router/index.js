@@ -15,6 +15,11 @@ const routes = [
     component: () => import('@/views/ctgDragdrop')
   },
   {
+    path: '/ctg-mix',
+    name: 'ctg-mix',
+    component: () => import('@/views/ctgMix')
+  },
+  {
     path: '/vue-compsystem',
     name: 'vue-compsystem',
     component: () => import('@/views/vueCompsystem')

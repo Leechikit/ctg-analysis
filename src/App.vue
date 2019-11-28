@@ -3,6 +3,7 @@
     <div id="nav">
       <router-link to="/ctg-compsystem">CTG-Compsystem</router-link> |
       <router-link to="/ctg-dragdrop">CTG-Dragdrop</router-link> |
+      <router-link to="/ctg-mix">CTG-Mix</router-link> |
       <router-link to="/vue-compsystem">VUE-Compsystem</router-link> |
       <router-link to="/vue-dragdrop">VUE-Dragdrop</router-link>
     </div>

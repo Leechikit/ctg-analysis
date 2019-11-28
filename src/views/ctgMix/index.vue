@@ -1,5 +1,5 @@
 <template>
-  <div class="ctg-dragdrop">
+  <div class="ctg-compsystem">
     <div class="con">
       <div class="con-left">
         <div class="comp" id="components">
@@ -15,6 +15,7 @@
         </div>
       </div>
       <div class="con-main" id="sheetContent"></div>
+      <div class="con-right" id="sheetPropertysPanel"></div>
     </div>
   </div>
 </template>
@@ -23,9 +24,8 @@ import FormControls from './FormControls'
 import SheetDesigner from './SheetDesigner'
 import 'jquery-ui/ui/widgets/draggable'
 import 'jquery-ui/ui/widgets/sortable'
-
 export default {
-  name: 'ctgDragdrop',
+  name: 'ctg-compsystem',
   data() {
     return {
       component: [],
@@ -111,6 +111,25 @@ export default {
         margin-right: 5px;
       }
     }
+  }
+}
+#sheetPropertysPanel {
+  margin: 0 5px;
+  .property-group {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+  }
+  .property-left {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  .property-items {
+    margin-bottom: 10px;
+  }
+  .property-input {
+    width: 100%;
   }
 }
 </style>
