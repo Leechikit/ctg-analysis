@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import '@/assets/styles/reset.css'
 import '@/assets/styles/base.scss'
+import 'jquery'
+import 'jquery-ui'
 
 Vue.config.productionTip = false
 

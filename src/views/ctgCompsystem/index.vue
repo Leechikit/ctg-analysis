@@ -19,7 +19,6 @@
   </div>
 </template>
 <script>
-import $ from 'jquery'
 import FormControls from './FormControls'
 import SheetDesigner from './SheetDesigner'
 export default {
@@ -27,13 +26,11 @@ export default {
   data() {
     return {
       component: [],
-      sheetDesigner: null,
-      $SheetContent: null
+      sheetDesigner: null
     }
   },
   mounted() {
     this.sheetDesigner = new SheetDesigner()
-    this.$SheetContent = $('#sheetContent')
     this.getComponents()
   },
   methods: {
@@ -53,22 +50,6 @@ export default {
 }
 </script>
 <style lang="scss" scope>
-.con {
-  display: flex;
-  &-left {
-    flex-shrink: 0;
-    width: 20vw;
-    min-width: 200px;
-  }
-  &-right {
-    flex-shrink: 0;
-    width: 20vw;
-    min-width: 200px;
-  }
-  &-main {
-    flex: 1;
-  }
-}
 .comp {
   overflow: hidden;
   margin: 0 5px;

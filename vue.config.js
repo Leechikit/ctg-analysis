@@ -1,8 +1,11 @@
+const webpack = require('webpack')
 module.exports = {
   lintOnSave: false,
   configureWebpack: {
-    externals: {
-      jquery: 'jQuery'
-    }
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery'
+      })
+    ]
   }
 }
