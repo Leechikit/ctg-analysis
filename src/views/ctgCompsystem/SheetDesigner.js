@@ -1,6 +1,6 @@
 import $ from 'jquery'
-import FormControls from './FormControls'
-import ControlManager from './ControlManager'
+import FormControls from '@/views/ctgMix/FormControls'
+import ControlManager from '@/views/ctgMix/ControlManager'
 
 export default class SheetDesigner {
   constructor() {

@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import FormControls from './FormControls'
+import FormControls from '@/views/ctgMix/FormControls'
 
 export default class SheetDesigner {
   constructor() {

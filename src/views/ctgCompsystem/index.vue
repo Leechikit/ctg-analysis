@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-import FormControls from './FormControls'
+import FormControls from '@/views/ctgMix/FormControls'
 import SheetDesigner from './SheetDesigner'
 export default {
   name: 'ctg-compsystem',

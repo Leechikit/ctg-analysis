@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-import FormControls from './FormControls'
+import FormControls from '@/views/ctgMix/FormControls'
 import SheetDesigner from './SheetDesigner'
 import 'jquery-ui/ui/widgets/draggable'
 import 'jquery-ui/ui/widgets/sortable'

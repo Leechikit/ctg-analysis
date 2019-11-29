@@ -28,6 +28,11 @@ const routes = [
     path: '/vue-dragdrop',
     name: 'vue-dragdrop',
     component: () => import('@/views/vueDragdrop')
+  },
+  {
+    path: '/vue-mix',
+    name: 'vue-mix',
+    component: () => import('@/views/vueMix')
   }
 ]
 

@@ -1,9 +1,9 @@
 <template>
-  <div class="vue-compsystem"></div>
+  <div class="vue-mix"></div>
 </template>
 <script>
 export default {
-  name: 'vueCompsystem'
+  name: 'vueMix'
 }
 </script>
 <style lang="scss" scope></style>

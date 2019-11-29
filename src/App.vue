@@ -5,7 +5,8 @@
       <router-link to="/ctg-dragdrop">CTG-Dragdrop</router-link> |
       <router-link to="/ctg-mix">CTG-Mix</router-link> |
       <router-link to="/vue-compsystem">VUE-Compsystem</router-link> |
-      <router-link to="/vue-dragdrop">VUE-Dragdrop</router-link>
+      <router-link to="/vue-dragdrop">VUE-Dragdrop</router-link> |
+      <router-link to="/vue-mix">VUE-Mix</router-link>
     </div>
     <div class="container">
       <router-view />
