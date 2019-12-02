@@ -46,7 +46,9 @@ export default class SheetDesigner {
     const datafield = this.GetDataField($el)
     this.$SheetPropertysPanel.empty()
     //加载控件属性
-    this.LoadPropertySetting.apply(this, [datafield])
+    if (datafield !== void 0) {
+      this.LoadPropertySetting.apply(this, [datafield])
+    }
   }
   //加载控件属性
   LoadPropertySetting(datafield) {
@@ -102,7 +104,7 @@ export default class SheetDesigner {
       //如果控件有异常（没有controlkey）返回null
       return null
     }
-    var designProperties = FormControls[controlKey].DesignProperties
+    var designProperties = FormControls[controlKey].DesignProperties || []
     for (var i = 0; i < designProperties.length; i++) {
       var propertyName = designProperties[i].Name
       if ($el.attr('data-' + propertyName)) {

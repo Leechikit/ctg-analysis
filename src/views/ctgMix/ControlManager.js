@@ -11,7 +11,7 @@ export default class ControlManager {
     this.$Control = this.Designer.GetControlElement(dataField)
     this.$SheetPropertysPanel = this.Designer.$SheetPropertysPanel
     this.ControlKey = this.Settings.ControlKey
-    this.DesignProperties = FormControls[this.ControlKey].DesignProperties
+    this.DesignProperties = FormControls[this.ControlKey].DesignProperties || []
     this.PropertyManagers = {}
     this.LoadPropertySetting()
   }
