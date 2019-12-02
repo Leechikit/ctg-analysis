@@ -71,10 +71,12 @@ export default {
     }
   }
 }
-.drop-item {
+.drop-placeholder {
   display: block;
   width: 100%;
   height: 40px;
+  line-height: 40px;
+  text-align: center;
   margin-bottom: 5px;
   background-color: #f0f4ff;
 }

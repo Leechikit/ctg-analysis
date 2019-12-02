@@ -61,6 +61,6 @@ export default {
   },
   layout_towcols: {
     Text: '一行两列',
-    candroptype: 'layout'
+    excludes: ['layout_towcols']
   }
 }

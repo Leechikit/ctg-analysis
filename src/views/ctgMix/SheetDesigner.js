@@ -69,31 +69,55 @@ export default class SheetDesigner {
     target.sortable({
       connectWith,
       forcePlaceholderSize: true,
-      placeholder: 'drop-item', //拖拽位置显示值
+      placeholder: 'drop-placeholder', //拖拽位置显示值
       scroll: true,
       scrollSensitivity: 100,
       cancel:
         'notdrag,.SheetGridView_wrap,#sheetContent .sheet-control.SheetGridView >div.col-sm-12',
       //containment: "parent",
-      over: () => {
+      over: (e, ui) => {
         console.log('sheetContent sortable over')
-        $(this)
-          .find('.drop-item')
-          .show()
+        this.SortableOver(ui.item, target)
       },
       stop: (e, ui) => {
         console.log('sheetContent sortable stop')
-        this.SortableStop(ui.item, e)
+        return this.SortableStop(ui.item, e)
       }
     })
   }
+  // 进入放置区域
+  SortableOver(item, target) {
+    const controlkey = $(item).attr('data-controlkey')
+    const targetControlkey = $(target).attr('data-controlkey')
+    let excludesControlkey = FormControls[controlkey].excludes || []
+    let $dropItem = $(target).find('.drop-placeholder')
+    if (excludesControlkey.includes(targetControlkey)) {
+      $dropItem.text('此控件不能拖入')
+    } else {
+      $dropItem.text('')
+    }
+  }
   // 放置结束
   SortableStop(item) {
-    let $item = $(item)
-    console.log($item)
-    if (this.CurrentDrag) {
-      this.AddComponent($item)
-      this.BindDragDropEvent()
+    const $item = $(item)
+    const $target = $item.parent()
+    const controlkey = $item.attr('data-controlkey')
+    const targetControlkey = $target.attr('data-controlkey')
+    let excludesControlkey = FormControls[controlkey].excludes || []
+    if (excludesControlkey.includes(targetControlkey)) {
+      setTimeout(() => {
+        alert('此控件不能拖入')
+      }, 0)
+      if (this.CurrentDrag) {
+        $item.remove()
+      } else {
+        return false
+      }
+    } else {
+      if (this.CurrentDrag) {
+        this.AddComponent($item)
+        this.BindDragDropEvent()
+      }
     }
   }
   // 增加组件
@@ -135,8 +159,8 @@ export default class SheetDesigner {
   RenderTwoCol2(controlkey) {
     let $el = $(
       `<div class="sheet-layout" data-controlkey="${controlkey}">
-        <div class="layout-item"></div>
-        <div class="layout-item"></div>
+        <div class="layout-item" data-controlkey="${controlkey}"></div>
+        <div class="layout-item" data-controlkey="${controlkey}"></div>
       </div>`
     )
     return $el
