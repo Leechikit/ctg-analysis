@@ -8,6 +8,7 @@
           :group="{ name: 'people', pull: 'clone', put: false }"
           :clone="cloneComp"
           :sort="false"
+          ghostClass="drop-placeholder"
         >
           <a
             class="comp-item"
