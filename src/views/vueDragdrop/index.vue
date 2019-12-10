@@ -14,6 +14,7 @@
             href="javascript:"
             v-for="item in componentList"
             :key="item.controlkey"
+            :data-controlkey="item.controlkey"
           >
             {{ item.name }}
           </a>
@@ -27,7 +28,11 @@
           ghost-class="drop-placeholder"
           @add="addHandler"
         >
-          <div v-for="item in designList" :key="item.datafield">
+          <div
+            class="sheet-control"
+            v-for="item in designList"
+            :key="item.controlkey"
+          >
             {{ item.name }}
           </div>
         </draggable>
@@ -125,6 +130,20 @@ export default {
     display: block;
     width: 100%;
     margin: 0;
+  }
+  .sheet-control {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    background-color: #f0f4ff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    &.s-selected {
+      border: 1px dashed #2d8cf0;
+    }
   }
 }
 </style>
