@@ -4,25 +4,32 @@
       <div class="con-left">
         <draggable
           class="comp"
-          :list="component"
-          :group="{ name: 'people', pull: 'clone', put: false }"
+          :list="componentList"
+          :group="{ name: 'component', pull: 'clone', put: false }"
           :clone="cloneComp"
           :sort="false"
-          ghostClass="drop-placeholder"
         >
           <a
             class="comp-item"
             href="javascript:"
-            v-for="item in component"
-            :key="item.id"
+            v-for="item in componentList"
+            :key="item.controlkey"
           >
             {{ item.name }}
           </a>
         </draggable>
       </div>
       <div class="con-main">
-        <draggable class="sheetContent" :list="designer" group="people">
-          <div v-for="item in designer" :key="item.id">{{ item.name }}</div>
+        <draggable
+          class="sheetContent"
+          :list="designList"
+          group="component"
+          ghost-class="drop-placeholder"
+          @add="addHandler"
+        >
+          <div v-for="item in designList" :key="item.datafield">
+            {{ item.name }}
+          </div>
         </draggable>
       </div>
     </div>
@@ -31,7 +38,6 @@
 <script>
 import draggable from 'vuedraggable'
 import FormControls from '@/views/ctgMix/FormControls'
-let idGlobal = 8
 export default {
   name: 'vueDragdrop',
   components: {
@@ -39,8 +45,9 @@ export default {
   },
   data() {
     return {
-      component: [],
-      designer: []
+      componentList: [],
+      designList: [],
+      datafieldNo: 0
     }
   },
   created() {
@@ -50,18 +57,45 @@ export default {
     getComponents() {
       for (let key in FormControls) {
         let item = FormControls[key]
-        this.component.push({
-          id: key,
+        this.componentList.push({
+          controlkey: key,
           name: item.Text
         })
       }
     },
-    cloneComp({ name }) {
-      console.log(name)
+    cloneComp({ controlkey, name }) {
       return {
-        id: idGlobal++,
+        datafield: this.createDatafield(),
+        controlkey,
         name
       }
+    },
+    addHandler(evt) {
+      console.log(evt)
+    },
+    //创建控件的datafield值
+    createDatafield() {
+      let newDatafield = ''
+      let needCheck = true
+      while (needCheck) {
+        this.datafieldNo += 1
+        newDatafield = 'F' + this.generateDatafield(7, '0', this.datafieldNo)
+        //先判断表单设计器中是否已经有相同的编码
+        let existControl = this.designList.filter(
+          item => item.datafield === newDatafield
+        )
+        if (existControl && existControl.length > 0) {
+          continue
+        } else {
+          needCheck = false
+        }
+      }
+      return newDatafield
+    },
+    //格式化DataFieldNo到7位
+    generateDatafield(bits, identifier, value) {
+      value = Array(bits + 1).join(identifier) + value
+      return value.slice(-bits)
     }
   }
 }
@@ -85,16 +119,12 @@ export default {
     }
   }
 }
-.drop-placeholder {
-  display: block;
-  width: 100%;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  margin-bottom: 5px;
-  background-color: #f0f4ff;
-}
 .sheetContent {
   min-height: 400px;
+  .drop-placeholder {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
 }
 </style>
