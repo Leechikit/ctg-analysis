@@ -70,9 +70,9 @@ export default {
     },
     cloneComp({ controlkey, name }) {
       return {
-        datafield: this.createDatafield(),
         controlkey,
-        name
+        name,
+        datafield: this.createDatafield()
       }
     },
     addHandler(evt) {

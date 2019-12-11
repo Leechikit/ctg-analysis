@@ -1,0 +1,29 @@
+export default {
+  FormTextBox: {
+    path: './packages/form-text-box/index.js',
+    cnName: '单行文本框',
+    properties: [
+      {
+        type: 'text',
+        cnName: '显示名称',
+        enName: 'label',
+        tips: '请填写显示名称',
+        value: '单行文本框'
+      },
+      {
+        type: 'text',
+        cnName: '提示文案',
+        enName: 'placeholder',
+        tips: '请填写提示文案',
+        value: '请输入'
+      },
+      {
+        type: 'switch',
+        cnName: '是否显示清空按钮',
+        enName: 'clearable',
+        tips: '',
+        value: false
+      }
+    ]
+  }
+}
