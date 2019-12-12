@@ -6,8 +6,9 @@
           class="comp"
           :list="componentList"
           :group="{ name: 'component', pull: 'clone', put: false }"
-          :clone="cloneComp"
           :sort="false"
+          :clone="cloneComp"
+          :move="checkMove"
         >
           <a
             class="comp-item"
@@ -24,25 +25,38 @@
         <draggable
           class="sheetContent"
           :list="designList"
-          group="component"
+          :group="{ name: 'component' }"
           ghost-class="drop-placeholder"
+          :move="checkMove"
           @add="addHandler"
+          @change="changeEvent"
         >
           <div
-            class="sheet-control"
-            v-for="item in designList"
-            :key="item.controlkey"
+            v-for="(item, $index) in designList"
+            :key="$index"
+            class="component"
+            :class="{ 's-active': item.datafield === activeDatafield }"
+            @click="clickDeisgnEvnet(item.datafield)"
           >
-            {{ item.name }}
+            <div :class="{ 'component-disable': item.type !== 'layout' }">
+              <component
+                :is="item.controlkey"
+                :data="item.properties"
+                :value="item.value"
+                :excludes="item.excludes"
+              ></component>
+            </div>
           </div>
         </draggable>
       </div>
+      <div class="con-right"></div>
     </div>
   </div>
 </template>
 <script>
 import draggable from 'vuedraggable'
-import FormControls from '@/views/ctgMix/FormControls'
+import FormControls from '@/views/vueMix/FormControls'
+import packagesRegister from '@/packages'
 export default {
   name: 'vueDragdrop',
   components: {
@@ -52,7 +66,8 @@ export default {
     return {
       componentList: [],
       designList: [],
-      datafieldNo: 0
+      datafieldNo: 0,
+      activeDatafield: null
     }
   },
   created() {
@@ -64,19 +79,42 @@ export default {
         let item = FormControls[key]
         this.componentList.push({
           controlkey: key,
-          name: item.Text
+          name: item.cnName
         })
       }
     },
-    cloneComp({ controlkey, name }) {
+    cloneComp({ controlkey }) {
+      this.activeDatafield = this.createDatafield()
+      let properties = {}
+      if (FormControls[controlkey].properties) {
+        FormControls[controlkey].properties.forEach(item => {
+          properties[item.enName] = item.value
+        })
+      }
+      packagesRegister(controlkey)
       return {
         controlkey,
-        name,
-        datafield: this.createDatafield()
+        properties,
+        datafield: this.activeDatafield,
+        value: FormControls[controlkey].value,
+        type: FormControls[controlkey].type,
+        excludes: FormControls[controlkey].excludes
       }
     },
+    checkMove: function(evt) {
+      // let controlkey = evt.draggedContext.element.controlkey
+      // console.log(evt)
+      return evt.draggedContext.element.name !== 'apple'
+    },
     addHandler(evt) {
-      console.log(evt)
+      let activeDesign = this.designList[evt.newIndex]
+      console.log(activeDesign)
+    },
+    changeEvent({ added, removed, moved }) {
+      console.log(added, removed, moved)
+    },
+    clickDeisgnEvnet(datafield) {
+      this.activeDatafield = datafield
     },
     //创建控件的datafield值
     createDatafield() {
@@ -131,18 +169,18 @@ export default {
     width: 100%;
     margin: 0;
   }
-  .sheet-control {
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 20px;
-    margin-bottom: 5px;
-    font-size: 14px;
-    background-color: #f0f4ff;
-    border: 1px solid #ccc;
+  .component {
+    border: 1px solid transparent;
     cursor: pointer;
-    &.s-selected {
-      border: 1px dashed #2d8cf0;
+    &:hover {
+      border-color: #f0f4ff;
+      background-color: #f0f4ff;
+    }
+    &.s-active {
+      border-color: #2d8cf0;
+    }
+    &-disable {
+      pointer-events: none;
     }
   }
 }

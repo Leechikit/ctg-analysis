@@ -2,6 +2,8 @@ export default {
   FormTextBox: {
     path: './packages/form-text-box/index.js',
     cnName: '单行文本框',
+    value: '',
+    type: 'control',
     properties: [
       {
         type: 'text',
@@ -25,5 +27,11 @@ export default {
         value: false
       }
     ]
+  },
+  FormColsTwo: {
+    cnName: '一行两列',
+    value: [],
+    type: 'layout',
+    excludes: ['FormColsTwo']
   }
 }

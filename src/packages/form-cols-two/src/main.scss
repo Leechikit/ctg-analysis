@@ -1,0 +1,14 @@
+.colstwo {
+  display: flex;
+  min-height: 64px;
+  padding: 5px;
+  background-color: #f0f4ff;
+  &-item {
+    flex: 1;
+    border: 1px dashed #ccc;
+    padding: 5px 5px 0;
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+}

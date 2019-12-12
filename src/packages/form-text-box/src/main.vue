@@ -42,7 +42,7 @@ export default {
     }
   },
   created() {
-    console.log(this.data)
+    // console.log(this.data)
   },
   methods: {
     handleInput(event) {
