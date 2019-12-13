@@ -32,6 +32,7 @@
         </div>
       </div>
       <div class="con-right">
+        <el-button type="primary" round @click="saveEvent">保存</el-button>
         <div class="sheetProperty" v-if="refreshProperty">
           <component
             v-for="(item, $index) in propertyList"
@@ -59,7 +60,8 @@ export default {
       propertyList: [],
       activeDatafield: null,
       datafieldNo: 0,
-      refreshProperty: true
+      refreshProperty: true,
+      needSave: false
     }
   },
   watch: {
@@ -72,6 +74,7 @@ export default {
           value.forEach(item => {
             activeDesign.properties[item.enName] = item.value
           })
+          this.needSave = true
         }
       },
       deep: true
@@ -97,33 +100,49 @@ export default {
       }
     },
     clickCompEvent(controlkey) {
+      if (this.needSave === true) {
+        this.designList = JSON.parse(JSON.stringify(this.designListCache))
+        this.needSave = false
+      }
       this.activeDatafield = this.createDatafield()
       let properties = {}
       this.propertyList = []
-      FormControls[controlkey].properties.forEach(item => {
-        properties[item.enName] = item.value
-        this.propertyList.push({ ...item })
-      })
+      if (FormControls[controlkey].properties) {
+        FormControls[controlkey].properties.forEach(item => {
+          properties[item.enName] = item.value
+          this.propertyList.push({ ...item })
+        })
+      }
       this.designList.push({
         controlkey,
         properties,
         datafield: this.activeDatafield
       })
-      this.designListCache = this.designList
+      this.designListCache = JSON.parse(JSON.stringify(this.designList))
       packagesRegister(controlkey)
     },
     clickDeisgnEvnet(datafield) {
+      if (this.needSave === true) {
+        this.designList = JSON.parse(JSON.stringify(this.designListCache))
+        this.needSave = false
+      }
       this.activeDatafield = datafield
       let activeDesign = find(this.designList, {
         datafield
       })
       this.propertyList = []
-      FormControls[activeDesign.controlkey].properties.forEach(item => {
-        this.propertyList.push({
-          ...item,
-          value: activeDesign.properties[item.enName]
+      if (FormControls[activeDesign.controlkey].properties) {
+        FormControls[activeDesign.controlkey].properties.forEach(item => {
+          this.propertyList.push({
+            ...item,
+            value: activeDesign.properties[item.enName]
+          })
         })
-      })
+      }
+    },
+    saveEvent() {
+      this.needSave = false
+      this.designListCache = JSON.parse(JSON.stringify(this.designList))
     },
     //创建控件的datafield值
     createDatafield() {
