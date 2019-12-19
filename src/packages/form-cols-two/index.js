@@ -1,7 +1,21 @@
 import Vue from 'vue'
-import ClosTwo from './src/main.vue'
-
-ClosTwo.install = function() {
-  Vue.component(ClosTwo.name, ClosTwo)
+import Package from './src/main.vue'
+import config from './config'
+let data = {}
+if (config.properties) {
+  config.properties.forEach(item => {
+    if (item.enName !== void 0) {
+      data[item.enName] = item.value || null
+    }
+  })
 }
-export default ClosTwo
+Package.install = function() {
+  Package.props = Object.assign({}, Package.props, {
+    data: {
+      type: Object,
+      default: data
+    }
+  })
+  Vue.component(Package.name, Package)
+}
+export default Package

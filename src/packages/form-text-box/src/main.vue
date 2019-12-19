@@ -15,18 +15,7 @@
 export default {
   name: 'FormTextBox',
   props: {
-    data: {
-      type: Object,
-      default: () => {
-        return {
-          label: '',
-          value: '',
-          readonly: false,
-          clearable: false,
-          placeholder: ''
-        }
-      }
-    }
+    data: Object
   },
   data() {
     return {

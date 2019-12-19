@@ -2,6 +2,7 @@
   <div class="colstwo">
     <draggable
       class="colstwo-item"
+      :style="{ flex: data.percentage }"
       :list="leftList"
       :group="{ name: 'component' }"
       ghost-class="drop-placeholder"
@@ -26,6 +27,7 @@
     </draggable>
     <draggable
       class="colstwo-item"
+      :style="{ flex: 1 - data.percentage }"
       :list="rightList"
       :group="{ name: 'component' }"
       ghost-class="drop-placeholder"
@@ -59,18 +61,7 @@ export default {
     draggable
   },
   props: {
-    data: {
-      type: Object,
-      default: () => {
-        return {
-          label: '',
-          value: '',
-          readonly: false,
-          clearable: false,
-          placeholder: ''
-        }
-      }
-    },
+    data: Object,
     value: {
       type: Array,
       default: () => []

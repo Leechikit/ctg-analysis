@@ -122,6 +122,9 @@ export default {
       packagesRegister(controlkey)
     },
     clickDeisgnEvnet(datafield) {
+      if (this.activeDatafield === datafield) {
+        return
+      }
       if (this.needSave === true) {
         this.designList = JSON.parse(JSON.stringify(this.designListCache))
         this.needSave = false
